@@ -1,0 +1,107 @@
+#SampleID	SampleName	Project	FishType	LoperamidePathogen	SampleRep	Timepoint	TimepointDay	TrialNumber	DateCollected	LoperamideTimepoint	Condition
+#q2:types	categorical	categorical	categorical	categorical	numeric	categorical	categorical	categorical	categorical	categorical	categorical
+1-Conv-1-1	Conv_1_1	Loperamide	Conv		1	1	24h	38	20210928	ControlWater.24h	
+2-Conv-1-2	Conv_1_2	Loperamide	Conv		2	1	24h	38	20210928	ControlWater.24h	
+3-Conv-1-3	Conv_1_3	Loperamide	Conv		3	1	24h	38	20210928	ControlWater.24h	
+4-Conv-1-4	Conv_1_4	Loperamide	Conv		4	1	24h	38	20210928	ControlWater.24h	
+5-Conv-1-5	Conv_1_5	Loperamide	Conv		5	1	24h	38	20210928	ControlWater.24h	
+6-DMSO-1-1	DMSO_1_1	Loperamide	Conv	DMSO 1:100	1	1	24h	38	20210928	DMSO.24h	
+7-DMSO-1-2	DMSO_1_2	Loperamide	Conv	DMSO 1:100	2	1	24h	38	20210928	DMSO.24h	
+8-DMSO-1-3	DMSO_1_3	Loperamide	Conv	DMSO 1:100	3	1	24h	38	20210928	DMSO.24h	
+9-DMSO-1-4	DMSO_1_4	Loperamide	Conv	DMSO 1:100	4	1	24h	38	20210928	DMSO.24h	
+10-DMSO-1-5	DMSO_1_5	Loperamide	Conv	DMSO 1:100	5	1	24h	38	20210928	DMSO.24h	
+11-LOP-1-1	LOP_1_1	Loperamide	Conv	Loperamide 10mg/L	1	1	24h	38	20210928	Loperamide.24h	
+12-LOP-1-2	LOP_1_2	Loperamide	Conv	Loperamide 10mg/L	2	1	24h	38	20210928	Loperamide.24h	
+13-LOP-1-3	LOP_1_3	Loperamide	Conv	Loperamide 10mg/L	3	1	24h	38	20210928	Loperamide.24h	
+14-LOP-1-4	LOP_1_4	Loperamide	Conv	Loperamide 10mg/L	4	1	24h	38	20210928	Loperamide.24h	
+15-LOP-1-5	LOP_1_5	Loperamide	Conv	Loperamide 10mg/L	5	1	24h	38	20210928	Loperamide.24h	
+16-Conv-2-1	Conv_2_1	Loperamide	Conv		1	2	48h	38	20210929	ControlWater.48h	
+17-Conv-2-2	Conv_2_2	Loperamide	Conv		2	2	48h	38	20210929	ControlWater.48h	
+18-Conv-2-3	Conv_2_3	Loperamide	Conv		3	2	48h	38	20210929	ControlWater.48h	
+19-Conv-2-4	Conv_2_4	Loperamide	Conv		4	2	48h	38	20210929	ControlWater.48h	
+20-Conv-2-5	Conv_2_5	Loperamide	Conv		5	2	48h	38	20210929	ControlWater.48h	
+21-DMSO-2-1	DMSO_2_1	Loperamide	Conv	DMSO 1:100	1	2	48h	38	20210929	DMSO.48h	
+22-DMSO-2-2	DMSO_2_2	Loperamide	Conv	DMSO 1:100	2	2	48h	38	20210929	DMSO.48h	
+23-DMSO-2-3	DMSO_2_3	Loperamide	Conv	DMSO 1:100	3	2	48h	38	20210929	DMSO.48h	
+24-DMSO-2-4	DMSO_2_4	Loperamide	Conv	DMSO 1:100	4	2	48h	38	20210929	DMSO.48h	
+25-DMSO-2-5	DMSO_2_5	Loperamide	Conv	DMSO 1:100	5	2	48h	38	20210929	DMSO.48h	
+26-LOP-2-1	LOP_2_1	Loperamide	Conv	Loperamide 10mg/L	1	2	48h	38	20210929	Loperamide.48h	
+27-LOP-2-2	LOP_2_2	Loperamide	Conv	Loperamide 10mg/L	2	2	48h	38	20210929	Loperamide.48h	
+28-LOP-2-3	LOP_2_3	Loperamide	Conv	Loperamide 10mg/L	3	2	48h	38	20210929	Loperamide.48h	
+29-LOP-2-4	LOP_2_4	Loperamide	Conv	Loperamide 10mg/L	4	2	48h	38	20210929	Loperamide.48h	
+30-LOP-2-5	LOP_2_5	Loperamide	Conv	Loperamide 10mg/L	5	2	48h	38	20210929	Loperamide.48h	
+31-Conv-3-1	Conv_3_1	Loperamide	Conv		1	3	6d	38	20211004	ControlWater.6d	
+32-Conv-3-2	Conv_3_2	Loperamide	Conv		2	3	6d	38	20211004	ControlWater.6d	
+33-Conv-3-3	Conv_3_3	Loperamide	Conv		3	3	6d	38	20211004	ControlWater.6d	
+34-Conv-3-4	Conv_3_4	Loperamide	Conv		4	3	6d	38	20211004	ControlWater.6d	
+35-Conv-3-5	Conv_3_5	Loperamide	Conv		5	3	6d	38	20211004	ControlWater.6d	
+36-DMSO-3-1	DMSO_3_1	Loperamide	Conv	DMSO 1:100	1	3	6d	38	20211004	DMSO.6d	
+37-DMSO-3-2	DMSO_3_2	Loperamide	Conv	DMSO 1:100	2	3	6d	38	20211004	DMSO.6d	
+38-DMSO-3-3	DMSO_3_3	Loperamide	Conv	DMSO 1:100	3	3	6d	38	20211004	DMSO.6d	
+39-DMSO-3-4	DMSO_3_4	Loperamide	Conv	DMSO 1:100	4	3	6d	38	20211004	DMSO.6d	
+40-DMSO-3-5	DMSO_3_5	Loperamide	Conv	DMSO 1:100	5	3	6d	38	20211004	DMSO.6d	
+41-LOP-3-1	LOP_3_1	Loperamide	Conv	Loperamide 10mg/L	1	3	6d	38	20211004	Loperamide.6d	
+42-LOP-3-2	LOP_3_2	Loperamide	Conv	Loperamide 10mg/L	2	3	6d	38	20211004	Loperamide.6d	
+43-LOP-3-3	LOP_3_3	Loperamide	Conv	Loperamide 10mg/L	3	3	6d	38	20211004	Loperamide.6d	
+44-LOP-3-4	LOP_3_4	Loperamide	Conv	Loperamide 10mg/L	4	3	6d	38	20211004	Loperamide.6d	
+45-LOP-3-5	LOP_3_5	Loperamide	Conv	Loperamide 10mg/L	5	3	6d	38	20211004	Loperamide.6d	
+46-Conv-LB-1	Conv_LB_1	Yersinia	Conv	LB	1		24h	40	20211013		
+47-Conv-LB-2	Conv_LB_2	Yersinia	Conv	LB	2		24h	40	20211013		
+48-Conv-LB-3	Conv_LB_3	Yersinia	Conv	LB	3		24h	40	20211013		
+49-Conv-LB-4	Conv_LB_4	Yersinia	Conv	LB	4		24h	40	20211013		
+50-Conv-LB-5	Conv_LB_5	Yersinia	Conv	LB	5		24h	40	20211013		
+51-Conv-Ypseudo-1	Conv_Ypseudo_1	Yersinia	Conv	Y. pseudotuberculosis	1		24h	40	20211013		
+52-Conv-Ypseudo-2	Conv_Ypseudo_2	Yersinia	Conv	Y. pseudotuberculosis	2		24h	40	20211013		
+53-Conv-Ypseudo-3	Conv_Ypseudo_3	Yersinia	Conv	Y. pseudotuberculosis	3		24h	40	20211013		
+54-Conv-Ypseudo-4	Conv_Ypseudo_4	Yersinia	Conv	Y. pseudotuberculosis	4		24h	40	20211013		
+55-Conv-Ypseudo-5	Conv_Ypseudo_5	Yersinia	Conv	Y. pseudotuberculosis	5		24h	40	20211013		
+56-Conv-Yentero-1	Conv_Yentero_1	Yersinia	Conv	Y. enterocolitica	1		24h	40	20211013		
+57-Conv-Yentero-2	Conv_Yentero_2	Yersinia	Conv	Y. enterocolitica	2		24h	40	20211013		
+58-Conv-Yentero-3	Conv_Yentero_3	Yersinia	Conv	Y. enterocolitica	3		24h	40	20211013		
+59-Conv-Yentero-4	Conv_Yentero_4	Yersinia	Conv	Y. enterocolitica	4		24h	40	20211013		
+60-Conv-Yentero-5	Conv_Yentero_5	Yersinia	Conv	Y. enterocolitica	5		24h	40	20211013		
+61-Conv-Yruck-1	Conv_Yruck_1	Yersinia	Conv	Y. ruckeri	1		24h	40	20211013		
+62-Conv-Yruck-2	Conv_Yruck_2	Yersinia	Conv	Y. ruckeri	2		24h	40	20211013		
+63-Conv-Yruck-3	Conv_Yruck_3	Yersinia	Conv	Y. ruckeri	3		24h	40	20211013		
+64-Conv-Yruck-4	Conv_Yruck_4	Yersinia	Conv	Y. ruckeri	4		24h	40	20211013		
+65-Conv-Yruck-5	Conv_Yruck_5	Yersinia	Conv	Y. ruckeri	5		24h	40	20211013		
+66-Conv-Ykristen-1	Conv_Ykristen_1	Yersinia	Conv	Y. kristensenii	1		24h	40	20211013		
+67-Conv-Ykristen-2	Conv_Ykristen_2	Yersinia	Conv	Y. kristensenii	2		24h	40	20211013		
+68-Conv-Ykristen-3	Conv_Ykristen_3	Yersinia	Conv	Y. kristensenii	3		24h	40	20211013		
+69-Conv-Ykristen-4	Conv_Ykristen_4	Yersinia	Conv	Y. kristensenii	4		24h	40	20211013		
+70-Conv-Ykristen-5	Conv_Ykristen_5	Yersinia	Conv	Y. kristensenii	5		24h	40	20211013		
+71-Mix9-1	Mix9_1	Flavo	Mix9		1		24h	47	20220203		Mix9
+72-Mix9-2	Mix9_2	Flavo	Mix9		2		24h	47	20220203		Mix9
+73-Mix9-3	Mix9_3	Flavo	Mix9		3		24h	47	20220203		Mix9
+74-Mix9-4	Mix9_4	Flavo	Mix9		4		24h	47	20220203		Mix9
+75-Mix9-5	Mix9_5	Flavo	Mix9		5		24h	47	20220203		Mix9
+76-Mix9-6	Mix9_6	Flavo	Mix9		6		24h	47	20220203		Mix9
+77-Mix9-7	Mix9_7	Flavo	Mix9		7		24h	47	20220203		Mix9
+78-Mix9-8	Mix9_8	Flavo	Mix9		8		24h	47	20220203		Mix9
+79-Mix9-9	Mix9_9	Flavo	Mix9		9		24h	47	20220203		Mix9
+80-Mix9-10	Mix9_10	Flavo	Mix9		10		24h	47	20220203		Mix9
+81-Mix9-Fcol-1	Mix9_Fcol_1	Flavo	Mix9	F. columnare	1		24h	47	20220203		Mix9+Flavo
+82-Mix9-Fcol-2	Mix9_Fcol_2	Flavo	Mix9	F. columnare	2		24h	47	20220203		Mix9+Flavo
+83-Mix9-Fcol-3	Mix9_Fcol_3	Flavo	Mix9	F. columnare	3		24h	47	20220203		Mix9+Flavo
+84-Mix9-Fcol-4	Mix9_Fcol_4	Flavo	Mix9	F. columnare	4		24h	47	20220203		Mix9+Flavo
+85-Mix9-Fcol-5	Mix9_Fcol_5	Flavo	Mix9	F. columnare	5		24h	47	20220203		Mix9+Flavo
+86-Conv-1	Conv_1	Flavo	Conv		1		24h	47	20220203		Conv
+87-Conv-2	Conv_2	Flavo	Conv		2		24h	47	20220203		Conv
+88-Conv-3	Conv_3	Flavo	Conv		3		24h	47	20220203		Conv
+89-Conv-4	Conv_4	Flavo	Conv		4		24h	47	20220203		Conv
+90-Conv-5	Conv_5	Flavo	Conv		5		24h	47	20220203		Conv
+91-Conv-6	Conv_6	Flavo	Conv		6		24h	47	20220203		Conv
+92-Conv-7	Conv_7	Flavo	Conv		7		24h	47	20220203		Conv
+93-Conv-8	Conv_8	Flavo	Conv		8		24h	47	20220203		Conv
+94-Conv-9	Conv_9	Flavo	Conv		9		24h	47	20220203		Conv
+95-Conv-10	Conv_10	Flavo	Conv		10		24h	47	20220203		Conv
+96-Conv-Fcol-1	Conv_Fcol_1	Flavo	Conv	F. columnare	1		24h	47	20220203		Conv+Flavo
+97-Conv-Fcol-2	Conv_Fcol_2	Flavo	Conv	F. columnare	2		24h	47	20220203		Conv+Flavo
+98-Conv-Fcol-3	Conv_Fcol_3	Flavo	Conv	F. columnare	3		24h	47	20220203		Conv+Flavo
+99-Conv-Fcol-4	Conv_Fcol_4	Flavo	Conv	F. columnare	4		24h	47	20220203		Conv+Flavo
+100-Conv-Fcol-5	Conv_Fcol_5	Flavo	Conv	F. columnare	5		24h	47	20220203		Conv+Flavo
+101-Mock-1	Mock_1	Controls	Control PCR		1						
+102-Mock-2	Mock_2	Controls	Control PCR		2						
+103-Neg-kit1	Neg_kit1	Controls	Neg kit		1						
+104-Neg-kit2	Neg_kit2	Controls	Neg kit		2						
+105-Neg-PCR1	Neg_PCR1	Controls	Neg PCR		3						
