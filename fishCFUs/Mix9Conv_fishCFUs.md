@@ -99,7 +99,7 @@ alldata %>%
    labs(x=NULL, y="CFUs per fish (log scale)")
 ```
 
-![](Mix9Conv_files/figure-html/cfustotalall-1.png)<!-- -->
+![](Mix9Conv_fishCFUs_files/figure-html/cfustotalall-1.png)<!-- -->
 
 
 
@@ -117,7 +117,7 @@ alldata %>% group_by(Fish, FishNum) %>%
    labs(x=NULL, y="CFUs per fish")
 ```
 
-![](Mix9Conv_files/figure-html/cfuscontrol-1.png)<!-- -->
+![](Mix9Conv_fishCFUs_files/figure-html/cfuscontrol-1.png)<!-- -->
 
 ```r
 alldata %>% group_by(Fish, FishNum) %>% 
@@ -135,5 +135,5 @@ alldata %>% group_by(Fish, FishNum) %>%
    labs(x=NULL, y="CFUs per fish (log scale)")
 ```
 
-![](Mix9Conv_files/figure-html/cfuscontrol-2.png)<!-- -->
+![](Mix9Conv_fishCFUs_files/figure-html/cfuscontrol-2.png)<!-- -->
 
