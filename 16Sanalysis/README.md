@@ -4,7 +4,7 @@ This folder contains scripts used to perform QIIME2 analysis on the 16S rRNA amp
 ## [scripts/](scripts/)
 - [Mix9Conv16Samplicon_metadata.txt](scripts/Mix9Conv16Samplicon_metadata.txt) - metadata file formatted for QIIME2 import during `qiime feature-table summarize`
 - [Mix9ConvControls16Samplicon_analysis.Rmd](scripts/Mix9ConvControls16Samplicon_analysis.Rmd) and knitted outputs of analysis in R
-- [00_qiime2script_16Sv6.sh](scripts/00_qiime2script_16Sv6.sh)
+- [00_qiime2script_16Sv6.sh](scripts/00_qiime2script_16Sv6.sh) - main QIIME2 script with all bash commands
 
 ## [qiime2output/](qiime2output/)
 QIIME2 artifacts and processed files  

@@ -10,8 +10,7 @@ Edem E.A., Stevick, R.J., Pérez-Pascual, D., Ghigo, J-M. & Valm, A.M. (2023) Va
 # Contents
 
 ## [16Sanalysis/](16Sanalysis/)
-- [Mix9Conv16Samplicon_metadata.txt](16Sanalysis/Mix9Conv16Samplicon_metadata.txt)
-- [Mix9ConvControls16Samplicon_analysis.Rmd](16Sanalysis/Mix9ConvControls16Samplicon_analysis.Rmd)
+- [scripts/](16Sanalysis/scripts/)
 - [figures/](16Sanalysis/figures/)
 - [qiime2output/](16Sanalysis/qiime2output/)
 
