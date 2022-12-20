@@ -2,6 +2,7 @@
 
 This repository contains the scripts, processed sequencing artifacts, and the Rmd script files to reproduce the figures in the manuscript. The raw sequences generated for this study can be found in the NCBI Sequencing Read Archive under BioProject no. XXXXXXX.
 
+
 ## To cite this work:
 
 Edem E.A., Stevick, R.J., Pérez-Pascual, D., Ghigo, J-M. & Valm, A.M. (2023) Variability of the microbiome in gnotobiotic zebrafish affects host phenotypes. ...
@@ -21,4 +22,8 @@ Edem E.A., Stevick, R.J., Pérez-Pascual, D., Ghigo, J-M. & Valm, A.M. (2023) Va
 ## [histology/](histology/)
 Photos from histology in folders per condition and region, and summary figure [Mix9histologysummary.ai](histology/Mix9histologysummary.ai)
 
-## [microscopy](Microscopy)
+## [microscopy/](Microscopy/)
+FISH data and R script to make figures
+- [Figures/](Microscopy/Figures/)
+- [FISHFigures.R](Microscopy/FISHFigures.R)
+- [FISHMicroscopyResults.xlsx](Microscopy/FISHMicroscopyResults.xlsx)
