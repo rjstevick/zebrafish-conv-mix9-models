@@ -29,7 +29,17 @@ library(ungeviz)
 library(ggpubr)
 library(scales)
 
-theme_set(theme_pubr())
+
+# set global theme
+theme_set(theme_classic()+
+             theme(legend.position ="none",
+                   axis.title = element_text(size=18),
+                   legend.title = element_text(size=18, face="bold"),
+                   axis.text = element_text(size=15), 
+                   legend.text = element_text(size=18),
+                   strip.text = element_text(size=18), 
+                   plot.title = element_text(hjust=0.5, size=22),
+                   strip.background = element_rect(fill="grey80", color="transparent")))
 
 knitr::opts_chunk$set(warning=FALSE,message=FALSE)
 
@@ -116,29 +126,19 @@ alldata %>%
 ```{r cfuscontrol, fig.height=3, fig.width=4}
 
 alldata %>% group_by(Fish, FishNum) %>%
-   summarise(meanCFUperFish=mean(CFUperFish, na.rm = TRUE)) %>%
-   ggplot(aes(x=Fish, y=meanCFUperFish, fill=Fish, shape=Fish))+
-   geom_jitter(width=0.15, size=3, alpha=0.8, show.legend = FALSE)+
-   geom_boxplot(alpha=0.8, show.legend = FALSE)+
-   scale_fill_manual(values=c("red3","gold4")) +
-   scale_shape_manual(values=c(22,23))+
-   theme(panel.grid.major.y = element_line(color="grey80"),
-         panel.grid.minor.y = element_line(color="grey90"),
-         strip.background = element_rect(colour = "transparent"))+
-   labs(x=NULL, y="CFUs per fish")
-
-alldata %>% group_by(Fish, FishNum) %>%
    filter(Fish!="Conv on R2A") %>%
    summarise(meanCFUperFish=mean(CFUperFish, na.rm = TRUE)) %>%
    ggplot(aes(x=Fish, y=meanCFUperFish, fill=Fish, shape=Fish))+
-   geom_jitter(width=0.15, size=3, alpha=0.8, show.legend = FALSE)+
-   geom_boxplot(alpha=0.8, show.legend = FALSE)+
-   scale_fill_manual(values=c("red3","gold4")) +
+   geom_jitter(width=0.1, size=3)+
+   geom_boxplot(alpha=0.6, outlier.shape=NA)+
+   scale_fill_manual(values = c("#a8ddb5","#0868ac"))+
    scale_shape_manual(values=c(22,23))+
-   scale_y_continuous(trans = 'log10', labels = trans_format('log10', math_format(10^.x)))+
-   theme(panel.grid.major.y = element_line(color="grey80"),
-         panel.grid.minor.y = element_line(color="grey90"),
-         strip.background = element_rect(colour = "transparent"))+
-   labs(x=NULL, y="CFUs per fish (log scale)")
+   scale_y_continuous(trans=scales::pseudo_log_trans(base = 10),limits = c(0,NA),
+                      breaks = c(0,10,100,1000,10000,100000,1000000,10000000,1000000000))+
+   labs(x=NULL, y="CFUs per fish on LB")
+
+ggsave("Figure1F_FishCFUs.png",width = 5, height=4, dpi=400)
+ggsave("Figure1F_FishCFUs.pdf",width = 5, height=4)
+
 
 ```

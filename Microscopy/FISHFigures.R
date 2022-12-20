@@ -14,7 +14,7 @@ theme_set(theme_classic()+
                    legend.title = element_text(size=18, face="bold"),
                    axis.text = element_text(size=15), 
                    legend.text = element_text(size=18),
-                   strip.text = element_text(size=18), 
+                   strip.text = element_text(size=22), 
                    plot.title = element_text(hjust=0.5, size=22),
                    strip.background = element_rect(fill="grey80", color="transparent")))
 
@@ -31,14 +31,16 @@ Alldata<-read_excel("FISHMicroscopyResults.xlsx")
 
 ggplot(Alldata, aes(x=Condition, y=TotalBacBiovolume, shape=Condition, fill=Condition)) +
    geom_jitter(width=0.1, size=3)+
-   geom_boxplot(alpha=0.6, width=0.5, outlier.shape=NA)+
+   geom_boxplot(alpha=0.6, outlier.shape=NA)+
    scale_fill_manual(values = c("grey60","#a8ddb5","#0868ac"))+
    scale_shape_manual(values=c(21,22,23))+
+   scale_y_continuous(trans=scales::pseudo_log_trans(base = 10),
+                      breaks = c(0,10,100,1000,10000,100000,1000000,10000000,1000000000))+
    stat_compare_means(comparisons=list(c("Conv", "Mix9")), label="p.format")+
    labs(x=NULL, y="Biovolume (um^3)")
 
-ggsave("Figures/Figure1A_TotalBiovolume.png",width = 4,height=5,dpi=400)
-ggsave("Figures/Figure1A_TotalBiovolume.pdf",width = 4,height=5)
+ggsave("Figures/Figure1A_TotalBiovolume.png",width = 5,height=4,dpi=400)
+ggsave("Figures/Figure1A_TotalBiovolume.pdf",width = 5,height=4)
 
 # -----------------------------------------
 
@@ -163,4 +165,5 @@ ggsave("Figures/Figure5_1.png",width = 12,height=10,dpi=400)
    (PlotFigure5C+PlotFigure5D+PlotFigure5E)+plot_annotation(tag_levels = "A")& 
    theme(plot.tag = element_text(size = 22))
 ggsave("Figures/Figure5_2.png",width = 13,height=10,dpi=400)
+ggsave("Figures/Figure5_2.pdf",width = 13,height=10)
 
