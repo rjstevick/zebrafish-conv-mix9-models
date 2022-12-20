@@ -88,17 +88,16 @@ library(gplots)
 library(ComplexHeatmap)
 
 # set global theme
-theme_set(theme_minimal()+
-             theme(panel.grid.major.y = element_line(color="grey80"), strip.text=element_text(size=16),
-                   strip.background = element_rect(color="transparent"),
-                   strip.text.y = element_text(angle=0), plot.caption = element_text(size=10),
-                   panel.grid.major.x = element_blank(),legend.position="none",
-                   axis.ticks = element_line(inherit.blank = FALSE),
-                   panel.background = element_rect(color="grey50", size=1), 
-                   legend.title = element_text(size=18),
+theme_set(theme_classic()+
+             theme(legend.position ="none",
+                   axis.title = element_text(size=18),
+                   legend.title = element_text(size=18, face="bold"),
+                   axis.text = element_text(size=15), 
                    plot.background = element_blank(),
-                   axis.text = element_text(size=15), axis.title = element_text(size=16),
-                   legend.text = element_text(size=16), plot.title = element_text(hjust=0.5)))
+                   legend.text = element_text(size=18),
+                   strip.text = element_text(size=22), 
+                   plot.title = element_text(hjust=0.5, size=22),
+                   strip.background = element_rect(fill="grey80", color="transparent")))
 
 set.seed(532)
 
@@ -251,14 +250,15 @@ mockplot+seqmocks+plot_layout(guides="collect", widths = c(1,3)) & theme(legend.
 
 ```r
 reads <-datafullASVscutoff %>% 
+   group_by(SampleID) %>% mutate(sumreads=sum(value)) %>% distinct(Condition, SampleRep, SampleID, sumreads) %>% 
    # set order of samples 1-10
    mutate(SampleRep=factor(SampleRep, levels=unique(SampleRep))) %>% 
    # start plotting
-   ggplot(aes(x=SampleRep, y=value, fill=Condition))+
+   ggplot(aes(x=SampleRep, y=sumreads, fill=Condition))+
    # panel per fish type
    facet_grid(.~Condition, scales="free", space="free")+
-   geom_col()+
-   scale_fill_manual(values=c("red3", "gold4"))+
+   geom_col(color="grey40")+
+   scale_fill_manual(values = c("#a8ddb5","#0868ac"))+
    scale_y_continuous(expand=c(0,0), labels=scales::label_comma())+
    labs(y="Number of reads per sample",x=NULL,fill=NULL)
 reads
@@ -322,7 +322,7 @@ rarecurve_data <- rarecurve(SVsControls, step = 100, sample = raremax)
 
 ```r
 # clean plot of rarefaction curves
-rarecurve<-map_dfr(rarecurve_data, bind_rows) %>% 
+rareplot<-map_dfr(rarecurve_data, bind_rows) %>% 
    bind_cols(SampleID = rownames(SVsControls),.) %>%
    pivot_longer(-SampleID) %>%
    drop_na() %>%
@@ -331,7 +331,8 @@ rarecurve<-map_dfr(rarecurve_data, bind_rows) %>%
    left_join(metadata) %>% 
    ggplot(aes(x=n_seqs, y=value, group=SampleID, color=FishType, lty=FishType)) +
    geom_line(lwd=0.8) +
-   scale_colour_manual(values=c("red3","gold4"))+
+   scale_color_manual(values = c("#a8ddb5","#0868ac"))+
+   scale_fill_manual(values = c("#a8ddb5","#0868ac"))+
    scale_x_continuous(labels=label_comma())+
    theme(legend.key.width = unit(1.33,"cm"), legend.position=c(0.8,0.2))+
    labs(x = "Number of sequences", y="Number of ASVs detected", color=NULL, lty=NULL)
@@ -341,7 +342,8 @@ rarecurve<-map_dfr(rarecurve_data, bind_rows) %>%
 
 
 ```r
-((reads|rarecurve) + plot_annotation(tag_levels = "A")) 
+((reads+rareplot) + plot_annotation(tag_levels = "A")) &
+  theme(plot.tag = element_text(size=20))
 ```
 
 ![](Mix9ConvControls16Samplicon_analysis_files/figure-html/qcsummary-1.png)<!-- -->
@@ -372,7 +374,7 @@ phylabars <- datafullASVscutoff %>%
    ggplot(aes(x=SampleName, y=value, fill=Phylum))+
    facet_grid(.~Condition, scales="free", space="free")+
    geom_col(position="fill", alpha=0.8)+
-   theme(legend.position = c(0.9, 0.6), legend.background = element_rect(fill=alpha("white", 0.8), color = "transparent"),
+   theme(legend.position = c(0.85, 0.6), legend.background = element_rect(fill=alpha("white", 0.8), color = "transparent"),
          axis.text.x = element_blank(), 
          axis.ticks.y = element_line(inherit.blank=FALSE, color="grey30"),
          axis.ticks.x = element_blank())+
@@ -447,7 +449,7 @@ asvbars
 
 
 ```r
-phylabars/asvbars+plot_annotation(tag_levels = "A")+
+(phylabars/asvbars)+plot_annotation(tag_levels = "A") &
   theme(plot.tag = element_text(size=20))
 ```
 
@@ -473,7 +475,7 @@ mix9set <- datafullASVscutoff %>% ungroup() %>% filter(Condition=="Mix9") %>% di
 
 # plot venn diagram
 vennd <- ggVennDiagram::ggVennDiagram(list("Conv" = convset, "Mix9" = mix9set))+
-   scale_color_manual(values=c('red3','gold4'))+
+   scale_color_manual(values = c("#a8ddb5","#0868ac"))+
    scale_fill_gradient(low="white",high="grey50")+
    coord_sf(clip = 'off')+theme(legend.position = "none")
 vennd
@@ -503,7 +505,7 @@ metadata %>%
    geom_boxplot(alpha=0.8)+
    stat_compare_means(ref.group="Conv", label = "p.format", vjust=1)+
    labs(title="Chao Index", x=NULL,y="Chao Index",fill="Condition")+
-   scale_fill_manual(values=c("red3","gold4")) +
+   scale_fill_manual(values = c("#a8ddb5","#0868ac"))+
    scale_shape_manual(values=c(22,23))
 ```
 
@@ -529,7 +531,7 @@ divplot <- metadata %>%
    facet_wrap(~DiversityIndex, scales="free")+
    stat_compare_means(ref.group="Conv", label = "p.format")+
    labs(x=NULL, y="Index of Diversity",fill="LoperamideTimepoint")+
-   scale_fill_manual(values=c("red3","gold4")) +
+   scale_fill_manual(values = c("#a8ddb5","#0868ac"))+
    scale_shape_manual(values=c(22,23))+
    scale_y_continuous(expand = expansion(mult = c(0.1, .1)), limits=c(0,NA))
 divplot 
@@ -657,7 +659,7 @@ betadiv<-ggplot(data=NMDS,aes(x,y,colour=FishType,fill=FishType))+
   geom_point(size=4, alpha=0.8, aes(shape=FishType), color="black")+
    scale_shape_manual(values=c(22,23))+
   annotate("text",x=NMDS.mean$x,y=NMDS.mean$y,label=NMDS.mean$group,size=5, color="gray40") +
-  scale_fill_manual(values=c("red3","gold4"))+scale_colour_manual(values=c("red3","gold4"))+
+     scale_fill_manual(values = c("#a8ddb5","#0868ac"))+scale_colour_manual(values=c("#a8ddb5","#0868ac"))+
    ggtitle("Bray-Curtis beta-diversity")
 betadiv
 ```
@@ -710,7 +712,7 @@ withinbeta<-ggplot(braycurtisdistances, aes(x=Condition, y=value, fill=Condition
   geom_jitter(width=0.15, size=2,  alpha=0.7)+geom_boxplot(alpha=0.8)+
   labs(x=NULL,y="within condition \ndissimilarity index",fill="Condition")+
    stat_compare_means(ref.group="Conv", label = "p.format", vjust=1)+
-   scale_fill_manual(values=c("red3","gold4")) +
+   scale_fill_manual(values=c("#a8ddb5","#0868ac")) +
    scale_shape_manual(values=c(22,23))+
   scale_y_continuous(limits=c(0,1), labels=c("0.00","0.25","0.50","0.75","1.00"))
 withinbeta
@@ -723,13 +725,14 @@ withinbeta
 
 ```r
 ((vennd+plot_spacer())) / divplot / (betadiv+withinbeta+plot_layout(widths=c(1.8,1))) +
-   plot_annotation(tag_levels = "A")+plot_layout(heights=c(4,4,4))
+   plot_annotation(tag_levels = "A")+plot_layout(heights=c(4,4,4)) &
+  theme(plot.tag = element_text(size=20))
 ```
 
 ![](Mix9ConvControls16Samplicon_analysis_files/figure-html/plotalldiv-1.png)<!-- -->
 
 ```r
-ggsave("../figures/DiversitySummary.png", bg="transparent", width=7, height=8)
+ggsave("../figures/DiversitySummary.png", bg="transparent", width=8, height=10)
 ```
 
 
@@ -758,10 +761,10 @@ sessionInfo()
 ##  [1] ComplexHeatmap_2.10.0 gplots_3.1.1          UpSetR_1.4.0         
 ##  [4] patchwork_1.1.1       gt_0.4.0              vegan_2.5-7          
 ##  [7] lattice_0.20-45       permute_0.9-7         qiime2R_0.99.6       
-## [10] ggpubr_0.4.0          scales_1.1.1          forcats_0.5.1        
+## [10] ggpubr_0.4.0          scales_1.2.1          forcats_0.5.1        
 ## [13] stringr_1.4.0         dplyr_1.0.8           purrr_0.3.4          
 ## [16] readr_2.1.2           tidyr_1.2.0           tibble_3.1.6         
-## [19] ggplot2_3.3.5         tidyverse_1.3.1      
+## [19] ggplot2_3.4.0         tidyverse_1.3.1      
 ## 
 ## loaded via a namespace (and not attached):
 ##   [1] circlize_0.4.14        readxl_1.4.0           backports_1.4.1       
@@ -786,9 +789,9 @@ sessionInfo()
 ##  [58] RColorBrewer_1.1-2     ellipsis_0.3.2         farver_2.1.0          
 ##  [61] pkgconfig_2.0.3        NADA_1.6-1.1           nnet_7.3-17           
 ##  [64] sass_0.4.1             dbplyr_2.1.1           utf8_1.2.2            
-##  [67] labeling_0.4.2         tidyselect_1.1.2       rlang_1.0.2           
+##  [67] labeling_0.4.2         tidyselect_1.1.2       rlang_1.0.6           
 ##  [70] reshape2_1.4.4         munsell_0.5.0          cellranger_1.1.0      
-##  [73] tools_4.1.3            cli_3.2.0              ggVennDiagram_1.2.0   
+##  [73] tools_4.1.3            cli_3.4.1              ggVennDiagram_1.2.0   
 ##  [76] generics_0.1.2         ade4_1.7-18            broom_0.7.12          
 ##  [79] evaluate_0.15          biomformat_1.22.0      fastmap_1.1.0         
 ##  [82] yaml_2.3.5             knitr_1.38             fs_1.5.2              
@@ -797,8 +800,8 @@ sessionInfo()
 ##  [91] e1071_1.7-9            ggsignif_0.6.3         zCompositions_1.4.0-1 
 ##  [94] reprex_2.0.1           bslib_0.3.1            stringi_1.7.6         
 ##  [97] highr_0.9              Matrix_1.4-1           classInt_0.4-3        
-## [100] multtest_2.50.0        vctrs_0.4.0            pillar_1.7.0          
-## [103] lifecycle_1.0.1        rhdf5filters_1.6.0     jquerylib_0.1.4       
+## [100] multtest_2.50.0        vctrs_0.5.1            pillar_1.7.0          
+## [103] lifecycle_1.0.3        rhdf5filters_1.6.0     jquerylib_0.1.4       
 ## [106] GlobalOptions_0.1.2    data.table_1.14.2      bitops_1.0-7          
 ## [109] R6_2.5.1               latticeExtra_0.6-29    KernSmooth_2.23-20    
 ## [112] gridExtra_2.3          IRanges_2.28.0         codetools_0.2-18      
