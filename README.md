@@ -20,3 +20,5 @@ Edem E.A., Stevick, R.J., Pérez-Pascual, D., Ghigo, J-M. & Valm, A.M. (2023) Va
 
 ## [histology/](histology/)
 Photos from histology in folders per condition and region, and summary figure [Mix9histologysummary.ai](histology/Mix9histologysummary.ai)
+
+## [microscopy](Microscopy)
