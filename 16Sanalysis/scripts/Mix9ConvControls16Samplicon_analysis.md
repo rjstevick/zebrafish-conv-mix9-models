@@ -260,7 +260,7 @@ reads <-datafullASVscutoff %>%
    geom_col(color="grey40")+
    scale_fill_manual(values = c("#a8ddb5","#0868ac"))+
    scale_y_continuous(expand=c(0,0), labels=scales::label_comma())+
-   labs(y="Number of reads per sample",x=NULL,fill=NULL)
+   labs(y="Number of sequences per sample",x=NULL,fill=NULL)
 reads
 ```
 
@@ -349,7 +349,8 @@ rareplot<-map_dfr(rarecurve_data, bind_rows) %>%
 ![](Mix9ConvControls16Samplicon_analysis_files/figure-html/qcsummary-1.png)<!-- -->
 
 ```r
-ggsave("../figures/Mix9Conv_seqQC.png", bg="transparent", width=10, height=4)
+ggsave("../figures/Mix9Conv_seqQC.png", bg="transparent", width=11, height=5.5)
+ggsave("../figures/Mix9Conv_seqQC.pdf", bg="transparent", width=11, height=5.5)
 ```
 
 ----
@@ -370,8 +371,9 @@ phylabars <- datafullASVscutoff %>%
    # replace NAs with Unknown and remove "d__Bacteria; " from the start of every phyla
    mutate(Phylum=replace_na(Phylum, "Unknown"),
           Phylum=str_remove(Phylum, "d__Bacteria; ")) %>% 
+   group_by(SampleName,Phylum) %>% mutate(sumreads=sum(value)) %>% distinct(Condition,SampleName, Phylum, sumreads) %>% 
    # start plotting
-   ggplot(aes(x=SampleName, y=value, fill=Phylum))+
+   ggplot(aes(x=SampleName, y=sumreads, fill=Phylum))+
    facet_grid(.~Condition, scales="free", space="free")+
    geom_col(position="fill", alpha=0.8)+
    theme(legend.position = c(0.85, 0.6), legend.background = element_rect(fill=alpha("white", 0.8), color = "transparent"),
@@ -457,6 +459,7 @@ asvbars
 
 ```r
 ggsave("../figures/Mix9ConvBars.png", bg="transparent", width=13, height=11)
+ggsave("../figures/Mix9ConvBars.pdf", bg="transparent", width=13, height=11)
 ```
 
 
@@ -474,7 +477,9 @@ convset <- datafullASVscutoff %>% ungroup() %>% filter(Condition=="Conv") %>% di
 mix9set <- datafullASVscutoff %>% ungroup() %>% filter(Condition=="Mix9") %>% distinct(name) %>% .$name
 
 # plot venn diagram
-vennd <- ggVennDiagram::ggVennDiagram(list("Conv" = convset, "Mix9" = mix9set))+
+vennd <- ggVennDiagram::ggVennDiagram(list("Conv" = convset, "Mix9" = mix9set),
+                                      edge_lty = c('solid',"dashed"), set_size = 8,
+                                      label_alpha = 0,label_size = 6)+
    scale_color_manual(values = c("#a8ddb5","#0868ac"))+
    scale_fill_gradient(low="white",high="grey50")+
    coord_sf(clip = 'off')+theme(legend.position = "none")
@@ -660,6 +665,7 @@ betadiv<-ggplot(data=NMDS,aes(x,y,colour=FishType,fill=FishType))+
    scale_shape_manual(values=c(22,23))+
   annotate("text",x=NMDS.mean$x,y=NMDS.mean$y,label=NMDS.mean$group,size=5, color="gray40") +
      scale_fill_manual(values = c("#a8ddb5","#0868ac"))+scale_colour_manual(values=c("#a8ddb5","#0868ac"))+
+   labs(x=NULL, y=NULL)+
    ggtitle("Bray-Curtis beta-diversity")
 betadiv
 ```
@@ -732,7 +738,8 @@ withinbeta
 ![](Mix9ConvControls16Samplicon_analysis_files/figure-html/plotalldiv-1.png)<!-- -->
 
 ```r
-ggsave("../figures/DiversitySummary.png", bg="transparent", width=8, height=10)
+ggsave("../figures/DiversitySummary.png", bg="transparent", width=10, height=11)
+ggsave("../figures/DiversitySummary.pdf", bg="transparent", width=10, height=11)
 ```
 
 

@@ -1,5 +1,5 @@
 ---
-title: "Mix9 &  Conventional CFUs"
+title: "Mix9 & Conventional CFUs"
 author: "Rebecca Stevick/David Perez Pascual"
 date: "updated 2022.12.15"
 output:
@@ -15,8 +15,7 @@ output:
 # About the Data
 
 Mix9 Data from Trial 47. 11 fish  
-Conv Data from Trial 54. 12 fish 
-
+Conv Data from Trial 54. 12 fish
 
 ------------------------------------------------------------------------
 
@@ -28,7 +27,7 @@ Conv Data from Trial 54. 12 fish
 
 ## Import and check data
 
-### Conv 
+### Conv
 
 
 ```r
@@ -36,25 +35,25 @@ Conv Data from Trial 54. 12 fish
 rawdataConv <- readxl::read_xlsx("CFUfishConvMix9.xlsx", sheet="Conv")
 
 # format data
-dataLB <- rawdataConv %>% 
-   pivot_longer(LB_Rep1:LB_Rep3, names_to="LB_rep", values_to = "LB_CFU") %>% 
-   drop_na() %>% 
+dataLB <- rawdataConv %>%
+   pivot_longer(LB_Rep1:LB_Rep3, names_to="LB_rep", values_to = "LB_CFU") %>%
+   drop_na() %>%
    mutate(CFUperFish=LB_CFU*DF*(500/VolPlated_ul))
 
 
-dataR2A <- rawdataConv %>% 
-   pivot_longer(R2A_Rep1:R2A_Rep3, names_to="R2A_rep", values_to = "R2A_CFU") %>% 
-   drop_na() %>% 
+dataR2A <- rawdataConv %>%
+   pivot_longer(R2A_Rep1:R2A_Rep3, names_to="R2A_rep", values_to = "R2A_CFU") %>%
+   drop_na() %>%
    mutate(CFUperFish=R2A_CFU*DF*(500/VolPlated_ul))
 
-meandataConv <- rawdataConv %>% 
-   pivot_longer(R2A_Rep1:R2A_Rep3, names_to="R2A_rep", values_to = "R2A") %>% 
-   pivot_longer(LB_Rep1:LB_Rep3, names_to="LB_rep", values_to = "LB") %>% 
-   group_by(Fish,FishNum,DF,VolPlated_ul) %>% 
-   summarise_all(.funs="mean", na.rm=TRUE) %>% 
-   pivot_longer(c(R2A,LB), names_to="Media", values_to="Raw_CFU") %>% 
-   mutate(CFUperFish=Raw_CFU*DF*(500/VolPlated_ul)) %>% 
-   group_by(Fish,FishNum,Media) %>% 
+meandataConv <- rawdataConv %>%
+   pivot_longer(R2A_Rep1:R2A_Rep3, names_to="R2A_rep", values_to = "R2A") %>%
+   pivot_longer(LB_Rep1:LB_Rep3, names_to="LB_rep", values_to = "LB") %>%
+   group_by(Fish,FishNum,DF,VolPlated_ul) %>%
+   summarise_all(.funs="mean", na.rm=TRUE) %>%
+   pivot_longer(c(R2A,LB), names_to="Media", values_to="Raw_CFU") %>%
+   mutate(CFUperFish=Raw_CFU*DF*(500/VolPlated_ul)) %>%
+   group_by(Fish,FishNum,Media) %>%
    summarise_all(.funs="mean", na.rm=TRUE)
 ```
 
@@ -66,7 +65,7 @@ meandataConv <- rawdataConv %>%
 rawdataMix9 <- readxl::read_xlsx("CFUfishConvMix9.xlsx", sheet="Mix9")
 
 # format data
-dataMix9 <- rawdataMix9 %>% 
+dataMix9 <- rawdataMix9 %>%
    group_by(Fish,FishNum)
 ```
 
@@ -75,7 +74,7 @@ dataMix9 <- rawdataMix9 %>%
 
 
 ```r
-alldata <- dataLB %>% mutate(Treatment="Conv on LB") %>% 
+alldata <- dataLB %>% mutate(Treatment="Conv on LB") %>%
    full_join(dataR2A %>% mutate(Treatment="Conv on R2A")) %>% full_join(dataMix9)
 ```
 
@@ -86,15 +85,15 @@ alldata <- dataLB %>% mutate(Treatment="Conv on LB") %>%
 
 
 ```r
-alldata %>% 
+alldata %>%
    ggplot(aes(x=as.factor(FishNum), y=CFUperFish))+
    stat_summary(geom="col", stat="mean")+
    stat_summary(geom="errorbar", fun.data="mean_sd", width=0.2)+
    facet_grid(Fish~.)+
    scale_y_continuous(trans = 'log10', labels = trans_format('log10', math_format(10^.x)))+
    scale_fill_manual(values=c("grey20","darkred"))+
-   theme(panel.grid.major.y = element_line(color="grey80"), 
-         panel.grid.minor.y = element_line(color="grey90"), 
+   theme(panel.grid.major.y = element_line(color="grey80"),
+         panel.grid.minor.y = element_line(color="grey90"),
          strip.background = element_rect(colour = "transparent"))+
    labs(x=NULL, y="CFUs per fish (log scale)")
 ```
@@ -104,36 +103,28 @@ alldata %>%
 
 
 ```r
-alldata %>% group_by(Fish, FishNum) %>% 
-   summarise(meanCFUperFish=mean(CFUperFish, na.rm = TRUE)) %>% 
+plotCFUs <- alldata %>% group_by(Fish, FishNum) %>%
+   filter(Fish!="Conv on R2A") %>%
+   summarise(meanCFUperFish=mean(CFUperFish, na.rm = TRUE)) %>%
    ggplot(aes(x=Fish, y=meanCFUperFish, fill=Fish, shape=Fish))+
-   geom_jitter(width=0.15, size=3, alpha=0.8, show.legend = FALSE)+
-   geom_boxplot(alpha=0.8, show.legend = FALSE)+
-   scale_fill_manual(values=c("red3","gold4")) +
+   geom_jitter(width=0.1, size=3)+
+   geom_boxplot(alpha=0.6, outlier.shape=NA)+
+   scale_fill_manual(values = c("#a8ddb5","#0868ac"))+
    scale_shape_manual(values=c(22,23))+
-   theme(panel.grid.major.y = element_line(color="grey80"), 
-         panel.grid.minor.y = element_line(color="grey90"), 
-         strip.background = element_rect(colour = "transparent"))+
+   scale_y_continuous(trans=scales::pseudo_log_trans(base = 10),limits = c(0,NA),
+                      labels = c(0,expression(10^1),expression(10^3),expression(10^5)),
+                      breaks = c(0,10,1000,100000))+
    labs(x=NULL, y="CFUs per fish")
+plotCFUs
 ```
 
 ![](Mix9Conv_fishCFUs_files/figure-html/cfuscontrol-1.png)<!-- -->
 
 ```r
-alldata %>% group_by(Fish, FishNum) %>% 
-   filter(Fish!="Conv on R2A") %>% 
-   summarise(meanCFUperFish=mean(CFUperFish, na.rm = TRUE)) %>% 
-   ggplot(aes(x=Fish, y=meanCFUperFish, fill=Fish, shape=Fish))+
-   geom_jitter(width=0.15, size=3, alpha=0.8, show.legend = FALSE)+
-   geom_boxplot(alpha=0.8, show.legend = FALSE)+
-   scale_fill_manual(values=c("red3","gold4")) +
-   scale_shape_manual(values=c(22,23))+
-   scale_y_continuous(trans = 'log10', labels = trans_format('log10', math_format(10^.x)))+
-   theme(panel.grid.major.y = element_line(color="grey80"), 
-         panel.grid.minor.y = element_line(color="grey90"), 
-         strip.background = element_rect(colour = "transparent"))+
-   labs(x=NULL, y="CFUs per fish (log scale)")
+ggsave("Figure1F_FishCFUs.png",width = 4, height=3, dpi=400)
+ggsave("Figure1F_FishCFUs.pdf",width = 4, height=3)
+
+# Plot1A / plotCFUs
+# ggsave("Figure1AF.png",width = 4, height=6)
+# ggsave("Figure1AF.pdf",width = 4, height=6)
 ```
-
-![](Mix9Conv_fishCFUs_files/figure-html/cfuscontrol-2.png)<!-- -->
-
