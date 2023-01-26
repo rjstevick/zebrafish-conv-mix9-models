@@ -1,11 +1,11 @@
 # Raw data, processed data, and scripts for *Gnotobiotic zebrafish microbiota display inter-individual variability affecting host physiology*
 
-This repository contains the scripts, processed sequencing artifacts, and the Rmd script files to reproduce the figures in the manuscript. The raw sequences generated for this study can be found in the NCBI Sequencing Read Archive under BioProject no. XXXXXXX.
+This repository contains the scripts, processed sequencing artifacts, and the Rmd script files to reproduce the figures in the manuscript. The raw sequences generated for this study can be found in the NCBI Sequencing Read Archive under BioProject no. PRJNA928247.
 
 
 ## To cite this work:
 
-Edem E.A., Stevick, R.J., Pérez-Pascual, D., Ghigo, J-M. & Valm, A.M. (2023) Gnotobiotic zebrafish microbiota display inter-individual variability affecting host physiology.
+Adade\* E.A., Stevick\*, R.J., Pérez-Pascual, D., Ghigo, J-M. & Valm, A.M. (2023) Gnotobiotic zebrafish microbiota display inter-individual variability affecting host physiology.
 
 
 # Contents
