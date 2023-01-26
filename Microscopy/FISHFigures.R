@@ -28,22 +28,22 @@ Alldata<-read_excel("FISHMicroscopyResults.xlsx")
 # -----------------------------------------
 
 ### Total bacteria biovolume
-### Figure 1A
+### Figure 1E
 
-Plot1A <- ggplot(Alldata, aes(x=Condition, y=TotalBacBiovolume, shape=Condition, fill=Condition)) +
+Plot1E <- ggplot(Alldata, aes(x=Condition, y=TotalBacBiovolume, shape=Condition, fill=Condition)) +
    geom_jitter(width=0.1, size=3)+
    geom_boxplot(alpha=0.6, outlier.shape=NA)+
    scale_fill_manual(values = c("grey60","#a8ddb5","#0868ac"))+
    scale_shape_manual(values=c(21,22,23))+
    scale_y_continuous(trans=scales::pseudo_log_trans(base = 10),
-                      breaks = c(0,100,10000,1000000), 
+                      breaks = c(0,100,10000,1000000),
                       labels = c(0,expression(10^2),expression(10^4),expression(10^6)),
                       limits=c(NA,4000000))+
    stat_compare_means(comparisons=list(c("Conv", "Mix9")), label="p.format")+
    labs(x=NULL, y=expression(Bacteria~biovolume~'('*µm^3*')'))
-Plot1A
-ggsave("Figures/Figure1A_TotalBiovolume.png",width = 4,height=3,dpi=400)
-ggsave("Figures/Figure1A_TotalBiovolume.pdf",width = 4,height=3)
+Plot1E
+ggsave("Figures/Figure1E_TotalBiovolume.png",width = 4,height=3,dpi=400)
+ggsave("Figures/Figure1E_TotalBiovolume.pdf",width = 4,height=3)
 
 # -----------------------------------------
 
@@ -54,11 +54,12 @@ ggsave("Figures/Figure1A_TotalBiovolume.pdf",width = 4,height=3)
 Alldata %>%
    # convert to long form
    pivot_longer(c(BulbBiovolume,PBacBiovolume_um3,DBacBiovolume_um3),
-                names_to = "Location", values_to = "Biovolume")%>%
+                names_to = "Location", values_to = "Biovolume") %>%
    # rename and reorder
-   mutate(LocationClean=recode(Location,"BulbBiovolume"="Bulb",
+   mutate(LocationClean=recode(Location,
+                               "BulbBiovolume"="Bulb",
                                "DBacBiovolume_um3"="Distal","PBacBiovolume_um3"="Proximal"),
-          LocationClean=factor(LocationClean,levels=c("Bulb","Proximal","Distal")))%>%
+          LocationClean=factor(LocationClean,levels=c("Bulb","Proximal","Distal"))) %>%
    # start plotting
    ggplot(aes(x=LocationClean, y=Biovolume, fill=Condition, shape=Condition)) +
    geom_jitter(size=3, width=0.1)+
@@ -78,9 +79,9 @@ ggsave("Figures/Figure2B_BacteriaBiogeography.pdf",width = 8.5, height=4)
 
 
 ### Per Fish Bacteria and Mucus Analysis
-### Figure 5A
+### Figure 5E
 
-PlotFigure5A<-Alldata %>% filter(Condition!="Axenic") %>%
+PlotFigure5E<-Alldata %>% filter(Condition!="Axenic") %>%
    ggplot(aes(x=TotalBacBiovolume, y=NormalizedGutMucus, fill=Condition, shape=Condition)) +
    geom_point(size=6, alpha=0.8)+
    scale_shape_manual(values=c(22,23))+
@@ -91,16 +92,16 @@ PlotFigure5A<-Alldata %>% filter(Condition!="Axenic") %>%
    theme(legend.position="top", panel.background = element_rect(fill="grey90", color="transparent"),
          panel.grid.major = element_line(color="white"))+
    labs(x=expression(Bacteria~biovolume~'('*µm^3*')'), y="Normalized Mucus Intensity (A.U)", fill="Fish Model", shape="Fish Model")
-PlotFigure5A
-ggsave("Figures/Figure5A_GutNormMucusBacPerFish.png",width = 5,height=5,dpi=400)
-ggsave("Figures/Figure5A_GutNormMucusBacPerFish.pdf",width = 5,height=5)
+PlotFigure5E
+ggsave("Figures/Figure5E_GutNormMucusBacPerFish.png",width = 5,height=5,dpi=400)
+ggsave("Figures/Figure5E_GutNormMucusBacPerFish.pdf",width = 5,height=5)
 
 # -----------------------------------------
 
 
 ### TotalBacteria and TotalGutMucus association
-### Figure 5B
-PlotFigure5B<-Alldata %>% filter(Condition!="Axenic") %>%
+### Figure 5F
+PlotFigure5F<-Alldata %>% filter(Condition!="Axenic") %>%
    ggplot(aes(x=Condition, y=BacteriavsMucus, shape=Condition, fill=Condition)) +
    geom_jitter(size=3, width=0.1)+
    geom_boxplot(alpha=0.6, outlier.shape = NA)+
@@ -111,18 +112,18 @@ PlotFigure5B<-Alldata %>% filter(Condition!="Axenic") %>%
                       labels = c(0,expression(10^1),expression(10^2),
                                  expression(10^3),expression(10^4)))+
    labs(x=NULL, y="Total Bacteria/Normalized Mucus")
-PlotFigure5B
+PlotFigure5F
 
-ggsave("Figures/Figure5B_NormBacterMucus.png",width = 3,height=5,dpi=400)
-ggsave("Figures/Figure5B_NormBacterMucus.pdf",width = 3,height=5)
+ggsave("Figures/Figure5F_NormBacterMucus.png",width = 3,height=5,dpi=400)
+ggsave("Figures/Figure5F_NormBacterMucus.pdf",width = 3,height=5)
 
 # -----------------------------------------
 
 
 ### Normalized entire gut mucus analysis for conventional and mix 9
-### Figure 5C
+### Figure 5G
 
-PlotFigure5C <- Alldata %>%
+PlotFigure5G <- Alldata %>%
    filter(Condition!="Axenic") %>%
    ggplot(aes(x=Condition, y=NormalizedGutMucus, shape=Condition, fill=Condition)) +
    geom_jitter(size=3, width=0.1)+
@@ -132,50 +133,33 @@ PlotFigure5C <- Alldata %>%
    stat_compare_means(comparisons=list(c("Conv", "Mix9")),
                       label="p.format")+
    labs(x=NULL, y="Normalized Mucus Intensity (A.U)", title="Entire gut")
-PlotFigure5C
+PlotFigure5G
 
-ggsave("Figures/Figure5C_GutNormMucus.png",width = 3,height=5,dpi=400)
-ggsave("Figures/Figure5C_GutNormMucus.pdf",width = 3,height=5)
+ggsave("Figures/Figure5G_GutNormMucus.png",width = 3,height=5,dpi=400)
+ggsave("Figures/Figure5G_GutNormMucus.pdf",width = 3,height=5)
 
 # -----------------------------------------
 
 
 ### mucus distribution in proximal and distal gut
 ### Normalized mucus intensity for intestine (proximal and distal) for various conditions
-### Figure 5D
+### Figure 5GH
 
-PlotFigure5D<-Alldata %>%
-   mutate(IntestineMucus=NormalizedPMucus+NormalizedDMucus) %>%
-   ggplot(aes(x=Condition, y=IntestineMucus, shape=Condition, fill=Condition)) +
-   geom_jitter(size=3,  width=0.1)+
-   geom_boxplot(alpha=0.6, outlier.shape = NA)+
-   scale_shape_manual(values=c(21,22,23))+
-   scale_fill_manual(values = c("grey60","#a8ddb5","#0868ac"))+
-   stat_compare_means(comparisons=list( c("Axenic", "Conv"), c("Conv", "Mix9"), c("Axenic", "Mix9")),
-                      label="p.format")+
-   labs(x=NULL, y="Normalized Mucus Intensity (A.U)", title="Intestine (excluding bulb)")
-PlotFigure5D
-
-ggsave("Figures/Figure5D_IntestineMucus.png",width = 5,height=5,dpi=400)
-ggsave("Figures/Figure5D_IntestineMucus.pdf",width = 5,height=5)
-
-
-
-stat.test <- compare_means(value ~ Condition, group.by = "Location", (Alldata  %>% 
+stat.test <- compare_means(value ~ Condition, group.by = "Location", (Alldata  %>%
                               mutate(IntestineMucus=NormalizedPMucus+NormalizedDMucus) %>%
-                              pivot_longer(c(IntestineMucus, NormalizedGutMucus)) %>% 
+                              pivot_longer(c(IntestineMucus, NormalizedGutMucus)) %>%
                               mutate(Location=recode(name,"IntestineMucus"="Intestine (excluding bulb)",
                                                      "NormalizedGutMucus"="Entire gut"),
-                                     Location=factor(Location,levels=c("Entire gut","Intestine (excluding bulb)"))) %>% 
+                                     Location=factor(Location,levels=c("Entire gut","Intestine (excluding bulb)"))) %>%
                               filter(Condition!="Axenic" |  Location!="Entire gut")))
 
 
-PlotFigureCD <- Alldata  %>% 
+PlotFigureGH <- Alldata  %>%
    mutate(IntestineMucus=NormalizedPMucus+NormalizedDMucus) %>%
-   pivot_longer(c(IntestineMucus, NormalizedGutMucus)) %>% 
+   pivot_longer(c(IntestineMucus, NormalizedGutMucus)) %>%
    mutate(Location=recode(name,"IntestineMucus"="Intestine (excluding bulb)",
                                "NormalizedGutMucus"="Entire gut"),
-          Location=factor(Location,levels=c("Entire gut","Intestine (excluding bulb)"))) %>% 
+          Location=factor(Location,levels=c("Entire gut","Intestine (excluding bulb)"))) %>%
    filter(Condition!="Axenic" |  Location!="Entire gut") %>%
    ggplot(aes(x=Condition, y=value)) +
    facet_grid(.~Location, scales = "free_x", space = "free_x") +
@@ -185,23 +169,23 @@ PlotFigureCD <- Alldata  %>%
    scale_fill_manual(values = c("grey60","#a8ddb5","#0868ac"))+
    scale_y_continuous(limits=c(NA, 1350))+
    geom_bracket(aes(xmin = group1, xmax = group2, label = signif(p, 2)),
-      data = stat.test, 
+      data = stat.test,
       y.position = c(1100, 1200, 1300, 500))+
    theme(panel.spacing = unit(0.8, "lines"))+
    labs(x=NULL, y="Normalized Mucus Intensity (A.U)")
-PlotFigureCD
+PlotFigureGH
 
 # -----------------------------------------
 
 
 ### plot figure 5 all together
 
-((PlotFigure5A)/(PlotFigure5B+PlotFigureCD+plot_layout(widths=c(1,3))))+
-   plot_annotation(tag_levels = "A")  &
+((PlotFigure5E)/(PlotFigure5F+PlotFigureGH+plot_layout(widths=c(1,3))))+
+   plot_annotation(tag_levels = list(c("E","F","G","H")))  &
    theme(plot.tag = element_text(size = 22))
 
-ggsave("Figures/Figure5.png",width = 10.5,height=9,dpi=400)
-ggsave("Figures/Figure5.pdf",width = 10.5,height=9)
+ggsave("Figures/Figure5EFGH.png",width = 10.5,height=9,dpi=400)
+ggsave("Figures/Figure5EFGH.pdf",width = 10.5,height=9)
 
 
 
@@ -212,10 +196,10 @@ ggsave("Figures/Figure5.pdf",width = 10.5,height=9)
 
 rawdata <- gsheet::gsheet2tbl("https://docs.google.com/spreadsheets/d/1bmXLR8tvQ_LFOVfsBdXfs2pJGfwwEGW8ohENEwANJOc/edit?pli=1#gid=761509211")
 
-data <- rawdata %>% drop_na(Biovolume_um3) %>% 
-   arrange(Biovolume_um3) 
+data <- rawdata %>% drop_na(Biovolume_um3) %>%
+   arrange(Biovolume_um3)
 
-biovolumeplot<-data %>% 
+biovolumeplot<-data %>%
    ggplot(aes(y=Biovolume_um3))+
    geom_histogram(color="white", fill="#0868ac")+
    scale_y_continuous(trans=scales::pseudo_log_trans(base = 10),
@@ -227,6 +211,5 @@ biovolumeplot<-data %>%
    labs(x="Number of fish (n)", y=expression(Bacteria~biovolume~'('*µm^3*')'), fill=NULL, color=NULL)
 biovolumeplot
 
-ggsave("Mix9_biovolumehist.png", width=3, height=4.5, bg="transparent")
-ggsave("Mix9_biovolumehist.pdf", width=3, height=4.5)
-
+ggsave("Figures/FigureS1_Mix9_biovolumehist.png", width=3, height=4.5, bg="transparent")
+ggsave("Figures/FigureS1_Mix9_biovolumehist.pdf", width=3, height=4.5)

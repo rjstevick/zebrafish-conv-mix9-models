@@ -142,8 +142,8 @@ plotCFUs
 ggsave("Figure1F_FishCFUs.png",width = 4, height=3, dpi=400)
 ggsave("Figure1F_FishCFUs.pdf",width = 4, height=3)
 
-# Plot1A / plotCFUs
-# ggsave("Figure1AF.png",width = 4, height=6)
-# ggsave("Figure1AF.pdf",width = 4, height=6)
+# Plot1E / plotCFUs
+# ggsave("Figure1EF.png",width = 4, height=6)
+# ggsave("Figure1EF.pdf",width = 4, height=6)
 
 ```
